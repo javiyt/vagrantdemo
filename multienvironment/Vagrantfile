@@ -1,0 +1,23 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "Precise32"
+
+  config.vm.box_url = "http://files.vagrantup.com/precise32.box"
+
+  config.vm.define "devel", primary: true do |devel|
+    devel.vm.network :forwarded_port, guest: 80, host: 8080
+    devel.vm.hostname = "development.server.vm"
+  end
+
+  config.vm.define "testing" do |testing|
+    testing.vm.network :forwarded_port, guest: 80, host: 8081
+    testing.vm.hostname = "testing.server.vm"
+  end
+
+  config.vm.provision :puppet do |puppet|
+    puppet.manifests_path = "manifests"
+    puppet.manifest_file  = "default.pp"
+  end  
+end
