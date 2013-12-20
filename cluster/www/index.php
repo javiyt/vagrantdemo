@@ -1,4 +1,5 @@
 <?php
+// Code example from http://www.php.net/manual/en/function.mysql-fetch-array.php, don't use it in production
 
 $link = mysql_connect('192.168.50.2', 'vagrant', 'vagrant') or die('No se pudo conectar: ' . mysql_error());
 
